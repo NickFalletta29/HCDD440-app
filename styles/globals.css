@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #191919;
+  --foreground: #ededed;
+  --main-color-1: #753a9c;
+  --main-color-2: #602885;
 }
 
 @media (prefers-color-scheme: dark) {
