@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Navbar from '/components/navbar';
+import ParticleBackground from '/components/particlebackground';
 
 const Container = styled.div`
   width: 100vw;
   margin: 0 auto;
   background: var(--background);
+  color: white;
+  padding: 50px 20px;
 `;
 
 const Header = styled.header`
@@ -15,8 +18,10 @@ const Header = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 32px;
-  color: #333;
+  font-size: 64px;
+  color: white;
+  font-family: "Bagel Fat One", serif;
+  font-weight: 400;
 `;
 
 const Section = styled.section`
@@ -24,16 +29,21 @@ const Section = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 24px;
-  color: #007bff;
+  font-size: 32px;
+  text-align: center;
+  color: var(--main-color-1);
   margin-bottom: 10px;
+  font-family: "Bagel Fat One", serif;
 `;
 
 const InfoRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
 `;
 
 const Label = styled.span`
@@ -41,30 +51,59 @@ const Label = styled.span`
 `;
 
 const Value = styled.span`
-  color: #555;
+  color: #ddd;
 `;
 
 const Button = styled.button`
-  background-color: #007bff;
+  background-color: var(--main-color-1);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--main-color-2);
+  }
+`;
+
+const DropdownButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--main-color-1);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
   
   &:hover {
-    background-color: #0056b3;
-    cursor: pointer;
+    color: var(--main-color-2);
   }
+`;
+
+const DropdownContent = styled.div`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-top: 10px;
 `;
 
 const AccountPage = () => {
   const router = useRouter();
+  const [paymentOpen, setPaymentOpen] = useState(false);
 
   return (
     <Container>
-        <Navbar />
+      <ParticleBackground />
+      <Navbar />
       <Header>
         <Title>Account Details</Title>
       </Header>
+      
       <Section>
         <SectionTitle>Personal Information</SectionTitle>
         <InfoRow>
@@ -76,10 +115,50 @@ const AccountPage = () => {
           <Value>john.doe@example.com</Value>
         </InfoRow>
         <InfoRow>
+          <Label>Address:</Label>
+          <Value>Doe's Address</Value>
+        </InfoRow>
+        <InfoRow>
           <Label>Phone:</Label>
           <Value>+1234567890</Value>
         </InfoRow>
+        
+        
+        <InfoRow>
+          <Label>Payment Information:</Label>
+          <DropdownButton onClick={() => setPaymentOpen(!paymentOpen)}>
+            {paymentOpen ? '▼ Hide Details' : '► Show Details'}
+          </DropdownButton>
+        </InfoRow>
+        <DropdownContent isOpen={paymentOpen}>
+          <InfoRow>
+            <Label>Card Type:</Label>
+            <Value>Visa</Value>
+          </InfoRow>
+          <InfoRow>
+            <Label>Card Number:</Label>
+            <Value>**** **** **** 1234</Value>
+          </InfoRow>
+          <InfoRow>
+            <Label>Expiration Date:</Label>
+            <Value>12/26</Value>
+          </InfoRow>
+          <InfoRow>
+            <Label>Security Code:</Label>
+            <Value>***</Value>
+          </InfoRow>
+          <InfoRow>
+            <Label>Name on Card:</Label>
+            <Value>John Doe</Value>
+          </InfoRow>
+        </DropdownContent>
+
+        <InfoRow>
+          <Label>Payment History:</Label>
+          <Value>???????</Value>
+        </InfoRow>
       </Section>
+      
       <Section>
         <SectionTitle>Account Settings</SectionTitle>
         <Button onClick={() => router.push('/map')}>Go to Map View</Button>
@@ -89,3 +168,4 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
+
