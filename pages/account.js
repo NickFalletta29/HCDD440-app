@@ -38,12 +38,15 @@ const SectionTitle = styled.h2`
 
 const InfoRow = styled.div`
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center; 
-  gap: 8px; 
-  padding: 8px 0;
-  border-bottom: 1px solid #ccc;
+  width: 60%; 
+  margin: 10px auto; 
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 12px; 
+  padding: 16px 20px;
   text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const Label = styled.span`
@@ -85,11 +88,14 @@ const DropdownButton = styled.button`
 `;
 
 const DropdownContent = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  flex-direction: column;
+  align-items: center;
+  width: 60%; 
+  margin: 10px auto;
   padding: 10px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  margin-top: 10px;
+  border-radius: 12px;
 `;
 
 const AccountPage = () => {
@@ -125,11 +131,13 @@ const AccountPage = () => {
         
         
         <InfoRow>
-          <Label>Payment Information:</Label>
+          <Label>Payment Information</Label>
+        </InfoRow>
+        <div style={{ width: '60%', margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
           <DropdownButton onClick={() => setPaymentOpen(!paymentOpen)}>
             {paymentOpen ? '▼ Hide Details' : '► Show Details'}
           </DropdownButton>
-        </InfoRow>
+        </div>
         <DropdownContent isOpen={paymentOpen}>
           <InfoRow>
             <Label>Card Type:</Label>
